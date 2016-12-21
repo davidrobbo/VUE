@@ -101,6 +101,7 @@ export default new Vuex.Store({
       state.activeFilter = id
    },
    ADD_NEW_PROD(state, prod){
+       Vue.set(prod, 'categories', [])
       state.products.push(prod)
    }
   },

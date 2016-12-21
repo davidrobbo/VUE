@@ -52,10 +52,12 @@ export default {
 
 	methods: {
 		addNewProduct() {
+			var self = this
 			this.$store.dispatch("addNewProduct", this.product).then(function(res){
-				console.log(res);
+				self.product.name = "";
+				self.product.desc = "";
+				self.product.price = 0;
 			}).catch(function(err){
-				console.log(err);
 			});
 		}
 	}

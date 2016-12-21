@@ -11,7 +11,7 @@ var routes = express.Router()
 var bodyParser = require('body-parser')
 var dbDetails = require("../config/db-details.js")
 var dbConn = require("../config/db.js")
-
+dbConn.connect()
 
 
 // default port where dev server listens for incoming traffic
@@ -66,18 +66,16 @@ app.use(staticPath, express.static('./static'))
 
 //ROUTES BELOW
 app.get("/hiya", function(req, res){
-  dbConn.connect();
   dbConn.query("INSERT INTO products VALUES (null, 'new product', 'new-desc', 22.10, null, null)", function(err, result){
+
   });
-  dbConn.end();
 });
 
 app.post("/api/product/create", function(req, res){
   var product = req.body.product;
-  dbConn.connect();
-  dbConn.query("INSERT INTO products VALUES (null, '" + product.name + "', '" + product.desc + "', " + product.price + ", null, null)", function(err, result){
-  });  
-  dbConn.end();
+  dbConn.query("INSERT INTO products VALUES (null, '" + product.name + "', '" + product.desc + "', null, null," + product.price + ")", function(err, result){
+    product.id = result.insertId;
+  });
   res.json({product: product});
 });
 
