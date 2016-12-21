@@ -1,4 +1,3 @@
 /node_modules
 /dist
-/config/db.js
 /config/db-details.js
