@@ -3,15 +3,14 @@ var config = require('../config')
 if (!process.env.NODE_ENV) process.env.NODE_ENV = JSON.parse(config.dev.env.NODE_ENV)
 var path = require('path')
 var express = require('express')
+var router = express.Router()
 var webpack = require('webpack')
 var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
-var routes = express.Router() 
 var bodyParser = require('body-parser')
-var dbDetails = require("../config/db-details.js")
-var dbConn = require("../config/db.js")
-dbConn.connect()
+var routes = require("../app/routes/all.js")
+
 
 
 // default port where dev server listens for incoming traffic
@@ -65,19 +64,8 @@ var staticPath = path.posix.join(config.dev.assetsPublicPath, config.dev.assetsS
 app.use(staticPath, express.static('./static'))
 
 //ROUTES BELOW
-app.get("/hiya", function(req, res){
-  dbConn.query("INSERT INTO products VALUES (null, 'new product', 'new-desc', 22.10, null, null)", function(err, result){
 
-  });
-});
-
-app.post("/api/product/create", function(req, res){
-  var product = req.body.product;
-  dbConn.query("INSERT INTO products VALUES (null, '" + product.name + "', '" + product.desc + "', null, null," + product.price + ")", function(err, result){
-    product.id = result.insertId;
-  });
-  res.json({product: product});
-});
+app.use("/", routes)
 
 
 

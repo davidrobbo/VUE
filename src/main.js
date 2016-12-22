@@ -38,7 +38,10 @@ const app = new Vue({
 	},
 	mode: 'history',
 	store,
-	router
+	router,
+	mounted(){
+		console.log("HI");
+	}
 	}).$mount("#app")
 
 
