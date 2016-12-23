@@ -9,7 +9,9 @@ var opn = require('opn')
 var proxyMiddleware = require('http-proxy-middleware')
 var webpackConfig = require('./webpack.dev.conf')
 var bodyParser = require('body-parser')
-var routes = require("../app/routes/all.js")
+/*var routes = require("../app/routes/all.js")
+var db = require("mysql")
+var dbDetails = require("../config/db-details.js");*/
 
 
 
@@ -65,7 +67,7 @@ app.use(staticPath, express.static('./static'))
 
 //ROUTES BELOW
 
-app.use("/", routes)
+//app.use("/", routes)
 
 
 
